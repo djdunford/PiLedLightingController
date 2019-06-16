@@ -75,14 +75,14 @@ while True:
 	if btnTrigger == 1:
 		statusPost('Sequence 1 triggered') 
 		blinkt.setall(255,0,0)
-		blinkt.show(); 
+		blinkt.show()
 		btnTrigger = 0 
 
 	# if button 2 pressed show Red 
  	if btnTrigger == 2:
 		statusPost('Sequence 2 triggered') 
 		blinkt.setall(0,255,0)
-		blinkt.show(); 
+		blinkt.show() 
 		btnTrigger = 0 
 
 	# if button 3 pressed show Red 		 
