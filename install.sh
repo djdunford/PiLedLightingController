@@ -12,8 +12,7 @@
 servicedir="/opt/ledcontrol" 
  
 # install required modules
-# (commented out as no modules required at the moment) 
-# apt-get install -y xxx
+apt-get install -y python3-pip rpi.gpio
  
 # create directory structure for apps 
 mkdir -p $servicedir/bin 
