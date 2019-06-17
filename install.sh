@@ -11,8 +11,9 @@
 # script control variables 
 servicedir="/opt/ledcontrol" 
  
-# install required modules 
-apt-get install -y python3-pip python3-blinkt
+# install required modules
+# (commented out as no modules required at the moment) 
+# apt-get install -y xxx
  
 # create directory structure for apps 
 mkdir -p $servicedir/bin 

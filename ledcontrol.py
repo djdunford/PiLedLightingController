@@ -8,16 +8,13 @@
 # Import Libraries 
 import os 
 import RPi.GPIO as GPIO 
-import blinkt
 import syslog 
- 
-# override parameters in blinkt library
-blinkt.NUM_PIXELS = 144
-blinkt.DAT = 17
-blinkt.CLK = 27
 
 # change current working directory
 os.chdir(os.path.dirname(sys.argv[0]))
+
+# import library from CWD
+import ledstriplib
 
 # define status post function 
 def statusPost(status): 
@@ -63,8 +60,12 @@ for button in buttons:
 	GPIO.add_event_detect(button[0], GPIO.FALLING, callback=button_press_callback, bouncetime=50)
 
 # Set default brightness for Blinkt! LEDs 
-set_brightness(0.1) 
+ledstriplib.set_brightness(0.1) 
  
+# clear LEDs on startup
+ledstriplib.clear()
+ledstriplib.show()
+
 # post status message 
 statusPost("RUNNING") 
  
@@ -74,21 +75,21 @@ while True:
 	# if button 1 pressed show Red 
 	if btnTrigger == 1:
 		statusPost('Sequence 1 triggered') 
-		blinkt.setall(255,0,0)
-		blinkt.show()
+		ledstriplib.setall(255,0,0)
+		ledstriplib.show()
 		btnTrigger = 0 
 
 	# if button 2 pressed show Red 
 	if btnTrigger == 2:
 		statusPost('Sequence 2 triggered') 
-		blinkt.setall(0,255,0)
-		blinkt.show() 
+		ledstriplib.setall(0,255,0)
+		ledstriplib.show() 
 		btnTrigger = 0 
 
 	# if button 3 pressed show Red		  
 	if btnTrigger == 3:
 		statusPost('Sequence 3 triggered') 
-		blinkt.setall(0,0,255)
-		blinkt.show(); 
+		ledstriplib.setall(0,0,255)
+		ledstriplib.show(); 
 		btnTrigger = 0 
   
