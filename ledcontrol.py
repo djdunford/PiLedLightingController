@@ -9,6 +9,7 @@
 import os 
 import RPi.GPIO as GPIO 
 import syslog 
+import sys
 
 # change current working directory
 os.chdir(os.path.dirname(sys.argv[0]))
