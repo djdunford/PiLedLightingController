@@ -79,13 +79,13 @@ while True:
 		btnTrigger = 0 
 
 	# if button 2 pressed show Red 
- 	if btnTrigger == 2:
+	if btnTrigger == 2:
 		statusPost('Sequence 2 triggered') 
 		blinkt.setall(0,255,0)
 		blinkt.show() 
 		btnTrigger = 0 
 
-	# if button 3 pressed show Red 		 
+	# if button 3 pressed show Red		  
 	if btnTrigger == 3:
 		statusPost('Sequence 3 triggered') 
 		blinkt.setall(0,0,255)
