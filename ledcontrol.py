@@ -82,35 +82,39 @@ while True:
         if stsSequence == 1:
             statusPost('Sequence 1 cleared')
             ledstriplib.clear()
+            stsSequence = 0
         else:
             statusPost('Sequence 1 triggered') 
             ledstriplib.set_all(255,0,0)
+            stsSequence = 1
 
         ledstriplib.show()
         btnTrigger = 0 
-        stsSequence = 1 - stsSequence
 
     # if button 2 pressed show Red 
     if btnTrigger == 2:
         if stsSequence == 2:
             statusPost('Sequence 2 cleared')
             ledstriplib.clear()
+            stsSequence = 0
         else:
             statusPost('Sequence 2 triggered') 
             ledstriplib.set_all(0,255,0)
+            stsSequence = 2
 
         ledstriplib.show() 
         btnTrigger = 0 
-        stsSequence = 2 - stsSequence
 
     # if button 3 pressed show Red          
     if btnTrigger == 3:
         if stsSequence == 3:
             statusPost('Sequence 3 cleared')
             ledstriplib.clear()
+            stsSequence = 0
         else:
             statusPost('Sequence 3 triggered') 
             ledstriplib.set_all(0,0,255)
+            stsSequence = 3
 
         ledstriplib.show(); 
         btnTrigger = 0 
