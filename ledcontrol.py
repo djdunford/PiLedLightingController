@@ -114,4 +114,4 @@ while True:
 
         ledstriplib.show(); 
         btnTrigger = 0 
-          stsSequence = 3 - stsSequence
+        stsSequence = 3 - stsSequence
