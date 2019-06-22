@@ -10,6 +10,7 @@ import os
 import RPi.GPIO as GPIO 
 import syslog 
 import sys
+import time
 
 # change current working directory
 os.chdir(os.path.dirname(sys.argv[0]))
@@ -76,21 +77,21 @@ while True:
 	# if button 1 pressed show Red 
 	if btnTrigger == 1:
 		statusPost('Sequence 1 triggered') 
-		ledstriplib.setall(255,0,0)
+		ledstriplib.set_all(255,0,0)
 		ledstriplib.show()
 		btnTrigger = 0 
 
 	# if button 2 pressed show Red 
 	if btnTrigger == 2:
 		statusPost('Sequence 2 triggered') 
-		ledstriplib.setall(0,255,0)
+		ledstriplib.set_all(0,255,0)
 		ledstriplib.show() 
 		btnTrigger = 0 
 
 	# if button 3 pressed show Red		  
 	if btnTrigger == 3:
 		statusPost('Sequence 3 triggered') 
-		ledstriplib.setall(0,0,255)
+		ledstriplib.set_all(0,0,255)
 		ledstriplib.show(); 
 		btnTrigger = 0 
   

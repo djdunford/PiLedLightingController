@@ -4,9 +4,9 @@ import RPi.GPIO as GPIO
 
 __version__ = '0.1.2'
 
-DAT = 17
-CLK = 27
-NUM_PIXELS = 144
+DAT = 5
+CLK = 6
+NUM_PIXELS = 146
 BRIGHTNESS = 7
 
 pixels = [[0, 0, 0, BRIGHTNESS]] * NUM_PIXELS
