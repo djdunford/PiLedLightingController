@@ -91,7 +91,7 @@ while True:
         ledstriplib.show()
         btnTrigger = 0 
 
-    # if button 2 pressed show Red 
+    # if button 2 pressed show Green
     if btnTrigger == 2:
         if stsSequence == 2:
             statusPost('Sequence 2 cleared')
@@ -105,7 +105,7 @@ while True:
         ledstriplib.show() 
         btnTrigger = 0 
 
-    # if button 3 pressed show Red          
+    # if button 3 pressed show Blue          
     if btnTrigger == 3:
         if stsSequence == 3:
             statusPost('Sequence 3 cleared')
@@ -118,4 +118,3 @@ while True:
 
         ledstriplib.show(); 
         btnTrigger = 0 
-        stsSequence = 3 - stsSequence
