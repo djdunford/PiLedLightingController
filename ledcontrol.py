@@ -80,7 +80,7 @@ while True:
             statusPost('Sequence 1 triggered') 
             for i in range(146):
                 ledstrip.set_pixel(i,255,0,0,10)
-                ledstrip.show()
+            ledstrip.show()
             stsSequence = 1
         btnTrigger = 0 
 
@@ -95,7 +95,7 @@ while True:
             statusPost('Sequence 2 triggered') 
             for i in range(146):
                 ledstrip.set_pixel(i,0,255,0,10)
-                ledstrip.show()
+            ledstrip.show()
             stsSequence = 2
         btnTrigger = 0 
 
@@ -110,6 +110,6 @@ while True:
             statusPost('Sequence 3 triggered') 
             for i in range(146):
                 ledstrip.set_pixel(i,0,0,255,10)
-                ledstrip.show()
+            ledstrip.show()
             stsSequence = 3
         btnTrigger = 0 
