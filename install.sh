@@ -25,7 +25,6 @@ chown -R pi:pi $servicedir
 # copy app and service files 
 cp ledcontrol.py $servicedir/bin 
 cp ledcontrol.service /lib/systemd/system 
-cp ledstriplib.py $servicedir/bin
 chmod 644 /lib/systemd/system/ledcontrol.service 
  
 # restart systemd and enable service on boot 
