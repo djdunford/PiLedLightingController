@@ -32,7 +32,7 @@ GPIO.setwarnings(False)
 
 # create array for BCM lines corresponding to buttons
 # format is [ BCM line , button_number ]
-buttons = [[3,1],[22,2],[9,3]]
+buttons = [[4,1],[22,2],[9,3]]
 
 # define button press callback function
 def button_press_callback(channel):
