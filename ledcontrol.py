@@ -13,12 +13,7 @@ import sys
 import time
 import AWSIoTPythonSDK
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTShadowClient
-
-# change current working directory
-os.chdir(os.path.dirname(sys.argv[0]))
-
-# import library from CWD
-import ledstriplib
+from driver import apa102
 
 # define status post function 
 def statusPost(status): 
@@ -39,7 +34,7 @@ GPIO.setwarnings(False)
 
 # create array for BCM lines corresponding to buttons
 # format is [ BCM line , button_number ]
-buttons = [[3,1],[22,2],[9,3]]
+buttons = [[4,1],[22,2],[9,3]]
 
 # define button press callback function
 def button_press_callback(channel):
@@ -66,12 +61,9 @@ for button in buttons:
     GPIO.setup(button[0], GPIO.IN, pull_up_down=GPIO.PUD_UP)
     GPIO.add_event_detect(button[0], GPIO.FALLING, callback=button_press_callback, bouncetime=50)
 
-# Set default brightness for Blinkt! LEDs 
-ledstriplib.set_brightness(0.1) 
- 
-# clear LEDs on startup
-ledstriplib.clear()
-ledstriplib.show()
+# initialise LED strip, uses SPI pins (BCM10 and BCM11) by default
+ledstrip = apa102.APA102(num_led=146)
+ledstrip.clear_strip()
 
 # post status message 
 statusPost("RUNNING") 
@@ -79,44 +71,47 @@ statusPost("RUNNING")
 # loop forever 
 while True: 
  
-    # if button 1 pressed show Red 
+    # if button 1 pressed show Red
+    # if already Red toggle off
     if btnTrigger == 1:
         if stsSequence == 1:
             statusPost('Sequence 1 cleared')
-            ledstriplib.clear()
+            ledstrip.clear_strip()
             stsSequence = 0
         else:
             statusPost('Sequence 1 triggered') 
-            ledstriplib.set_all(255,0,0)
+            for i in range(146):
+                ledstrip.set_pixel(i,255,0,0,10)
+            ledstrip.show()
             stsSequence = 1
-
-        ledstriplib.show()
         btnTrigger = 0 
 
     # if button 2 pressed show Green
+    # if already Green toggle off
     if btnTrigger == 2:
         if stsSequence == 2:
             statusPost('Sequence 2 cleared')
-            ledstriplib.clear()
+            ledstrip.clear_strip()
             stsSequence = 0
         else:
             statusPost('Sequence 2 triggered') 
-            ledstriplib.set_all(0,255,0)
+            for i in range(146):
+                ledstrip.set_pixel(i,0,255,0,10)
+            ledstrip.show()
             stsSequence = 2
-
-        ledstriplib.show() 
         btnTrigger = 0 
 
     # if button 3 pressed show Blue          
+    # if already Blue toggle off
     if btnTrigger == 3:
         if stsSequence == 3:
             statusPost('Sequence 3 cleared')
-            ledstriplib.clear()
+            ledstrip.clear_strip()
             stsSequence = 0
         else:
             statusPost('Sequence 3 triggered') 
-            ledstriplib.set_all(0,0,255)
+            for i in range(146):
+                ledstrip.set_pixel(i,0,0,255,10)
+            ledstrip.show()
             stsSequence = 3
-
-        ledstriplib.show(); 
         btnTrigger = 0 

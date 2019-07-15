@@ -1,0 +1,7 @@
+RPi.GPIO>=0.6.5
+Adafruit-GPIO>=1.0.3
+Adafruit-PureIO>=0.2.3
+apa102-pi>=2.2.0
+RPi.GPIO>=0.6.5
+spidev>=3.4
+AWSIoTPythonSDK>=1.4.7
