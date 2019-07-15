@@ -11,6 +11,8 @@ import RPi.GPIO as GPIO
 import syslog 
 import sys
 import time
+import AWSIoTPythonSDK
+from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTShadowClient
 
 # change current working directory
 os.chdir(os.path.dirname(sys.argv[0]))

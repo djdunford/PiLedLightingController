@@ -13,6 +13,7 @@ servicedir="/opt/ledcontrol"
  
 # install required modules
 apt-get install -y python3-pip rpi.gpio
+pip3 install AWSIoTPythonSDK
  
 # create directory structure for apps 
 mkdir -p $servicedir/bin 
