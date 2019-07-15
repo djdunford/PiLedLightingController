@@ -28,7 +28,8 @@ stsSequence = 0
 GPIO.setmode(GPIO.BCM)
 
 # Suppress warnings for GPIO usage clashes
-GPIO.setwarnings(False)
+# next line commented out to see if SPI clashes are causing the GPIO freeze
+# GPIO.setwarnings(False)
 
 # create array for BCM lines corresponding to buttons
 # format is [ BCM line , button_number ]
