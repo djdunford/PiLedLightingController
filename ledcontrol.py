@@ -17,11 +17,6 @@ from driver import apa102
 import configparser
 import json
 
-# define status post function 
-def statusPost(status): 
-    syslog.syslog(status) 
-    return 
-     
 # change current working directory
 os.chdir(os.path.dirname(sys.argv[0]))
 
@@ -46,7 +41,6 @@ btnTrigger = 0
 
 # set current sequence to false
 stsSequence = 0
-
 
 # define AWSIoT shadow functions and callbacks
 class shadowCallbackContainer:
@@ -106,8 +100,6 @@ class shadowCallbackContainer:
             syslog.syslog(status)
     
         return
-
-
 
 # Set the GPIO PIN naming mode
 GPIO.setmode(GPIO.BCM)
@@ -170,10 +162,6 @@ Bot = myAWSIoTMQTTShadowClient.createShadowHandlerWithName(thingname, True)
 # create new instance of shadowCallbackContainer class
 shadowCallbackContainer_Bot = shadowCallbackContainer(Bot)
 
-
-
-
-
 # initialise LED strip, uses SPI pins (BCM10 and BCM11) by default
 ledstrip = apa102.APA102(num_led=146)
 ledstrip.clear_strip()
@@ -185,7 +173,6 @@ shadowCallbackContainer_Bot.statusPost('RUNNING')
 # register AWSIoT callback to allow remote triggering and configuration
 Bot.shadowRegisterDeltaCallback(shadowCallbackContainer_Bot.customShadowCallback_Delta)
 
-
 # loop forever 
 while True: 
  
@@ -193,11 +180,11 @@ while True:
     # if already Red toggle off
     if btnTrigger == 1:
         if stsSequence == 1:
-            statusPost('Sequence 1 cleared')
+            shadowCallbackContainer_Bot.statusPost('Sequence 1 cleared')
             ledstrip.clear_strip()
             stsSequence = 0
         else:
-            statusPost('Sequence 1 triggered') 
+            shadowCallbackContainer_Bot.statusPost('Sequence 1 triggered') 
             for i in range(146):
                 ledstrip.set_pixel(i,255,0,0,10)
             ledstrip.show()
@@ -208,11 +195,11 @@ while True:
     # if already Green toggle off
     if btnTrigger == 2:
         if stsSequence == 2:
-            statusPost('Sequence 2 cleared')
+            shadowCallbackContainer_Bot.statusPost('Sequence 2 cleared')
             ledstrip.clear_strip()
             stsSequence = 0
         else:
-            statusPost('Sequence 2 triggered') 
+            shadowCallbackContainer_Bot.statusPost('Sequence 2 triggered') 
             for i in range(146):
                 ledstrip.set_pixel(i,0,255,0,10)
             ledstrip.show()
@@ -223,11 +210,11 @@ while True:
     # if already Blue toggle off
     if btnTrigger == 3:
         if stsSequence == 3:
-            statusPost('Sequence 3 cleared')
+            shadowCallbackContainer_Bot.statusPost('Sequence 3 cleared')
             ledstrip.clear_strip()
             stsSequence = 0
         else:
-            statusPost('Sequence 3 triggered') 
+            shadowCallbackContainer_Bot.statusPost('Sequence 3 triggered') 
             for i in range(146):
                 ledstrip.set_pixel(i,0,0,255,10)
             ledstrip.show()
