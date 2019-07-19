@@ -24,3 +24,15 @@ rootcapath = /home/pi/awsiotkeys/aws-iot-rootCA.crt
 
 # AWSIoT thing name for device
 thingname = ThomasBedroomLEDcontrol
+
+# ===========================================================================
+# debug section - used for enabling/disabling messaging to syslog
+
+[debug]
+
+# disable all syslog logging by setting to false
+syslog = on
+
+# additional debug logging to syslog by setting to true
+debug = off
+
