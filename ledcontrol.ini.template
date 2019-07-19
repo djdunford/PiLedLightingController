@@ -1,0 +1,26 @@
+# example INI file with comments
+#
+# this needs to be in same directory as ledcontrol.py with the filename ledcontrol.ini
+#
+# by Darren Dunford
+
+# ===========================================================================
+# aws section - filenames for AWSIoT credentials,
+# endpoint hostname and client IDs
+
+[aws]
+
+# private key file, as provided by AWSIoT
+privatekeypath = /home/pi/awsiotkeys/KEYNAMEXXX-private.pem.key
+
+# certificate file, as provided by AWSIoT
+certificatepath = /home/pi/awsiotkeys/KEYNAMEXXX-certificate.pem.crt
+
+# AWSIoT MQTT endpoint
+host = ENDPOINT.iot.eu-west-1.amazonaws.com
+
+# AWSIoT root CA certificate
+rootcapath = /home/pi/awsiotkeys/aws-iot-rootCA.crt
+
+# AWSIoT thing name for device
+thingname = ThomasBedroomLEDcontrol
