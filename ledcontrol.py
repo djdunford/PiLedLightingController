@@ -189,7 +189,6 @@ while True:
                 ledstrip.set_pixel(i,255,0,0,10)
             ledstrip.show()
             stsSequence = 1
-        btnTrigger = 0 
 
     # if button 2 pressed show Green
     # if already Green toggle off
@@ -204,7 +203,6 @@ while True:
                 ledstrip.set_pixel(i,0,255,0,10)
             ledstrip.show()
             stsSequence = 2
-        btnTrigger = 0 
 
     # if button 3 pressed show Blue          
     # if already Blue toggle off
@@ -219,7 +217,12 @@ while True:
                 ledstrip.set_pixel(i,0,0,255,10)
             ledstrip.show()
             stsSequence = 3
-        btnTrigger = 0 
-        
-    # add delay to reduce processor load
-    time.sleep(0.1)
+
+    # add 0.5second debounce
+    if btnTrigger > 0:
+        time.sleep(0.5)
+        btnTrigger = 0
+    else:
+
+        # add delay to reduce processor load
+        time.sleep(0.1)
