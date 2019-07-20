@@ -212,11 +212,8 @@ while True:
         ledstrip.show()
         stsSequence = 3
 
-    # add 0.3second debounce
-    if btnTrigger > 0:
-        time.sleep(0.3)
-        btnTrigger = 0
-    else:
+    # clear trigger flag
+    btnTrigger = 0
 
-        # add delay to reduce processor load
-        time.sleep(0.1)
+    # add delay to reduce processor load
+    time.sleep(0.1)
