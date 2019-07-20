@@ -220,3 +220,6 @@ while True:
             ledstrip.show()
             stsSequence = 3
         btnTrigger = 0 
+        
+    # add delay to reduce processor load
+    time.sleep(0.1)
