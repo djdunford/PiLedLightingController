@@ -129,6 +129,12 @@ def button_press_callback(channel):
                 
     return
 
+    # implement toggle for cancelling
+    if btnTrigger > 0:
+        if btnTrigger == stsSequence:
+            btnTrigger = 100
+        
+
 # set each button as an input pin, with pullup,
 # and set an event handler based on falling edge
 # detection with debounce time
@@ -176,51 +182,39 @@ Bot.shadowRegisterDeltaCallback(shadowCallbackContainer_Bot.customShadowCallback
 # loop forever 
 while True: 
  
+    # if sequence 100 then cancel
+    if btnTrigger == 100:
+        shadowCallbackContainer_Bot.statusPost('RUNNING')
+        ledstrip.clear_strip()
+        stsSequence = 0
+    
     # if button 1 pressed show Red
-    # if already Red toggle off
     if btnTrigger == 1:
-        if stsSequence == 1:
-            shadowCallbackContainer_Bot.statusPost('Sequence 1 cleared')
-            ledstrip.clear_strip()
-            stsSequence = 0
-        else:
-            shadowCallbackContainer_Bot.statusPost('Sequence 1 triggered') 
-            for i in range(146):
-                ledstrip.set_pixel(i,255,0,0,10)
-            ledstrip.show()
-            stsSequence = 1
+        shadowCallbackContainer_Bot.statusPost('Sequence 1 triggered') 
+        for i in range(146):
+            ledstrip.set_pixel(i,255,0,0,10)
+        ledstrip.show()
+        stsSequence = 1
 
     # if button 2 pressed show Green
-    # if already Green toggle off
     if btnTrigger == 2:
-        if stsSequence == 2:
-            shadowCallbackContainer_Bot.statusPost('Sequence 2 cleared')
-            ledstrip.clear_strip()
-            stsSequence = 0
-        else:
-            shadowCallbackContainer_Bot.statusPost('Sequence 2 triggered') 
-            for i in range(146):
-                ledstrip.set_pixel(i,0,255,0,10)
-            ledstrip.show()
-            stsSequence = 2
+        shadowCallbackContainer_Bot.statusPost('Sequence 2 triggered') 
+        for i in range(146):
+            ledstrip.set_pixel(i,0,255,0,10)
+        ledstrip.show()
+        stsSequence = 2
 
     # if button 3 pressed show Blue          
-    # if already Blue toggle off
     if btnTrigger == 3:
-        if stsSequence == 3:
-            shadowCallbackContainer_Bot.statusPost('Sequence 3 cleared')
-            ledstrip.clear_strip()
-            stsSequence = 0
-        else:
-            shadowCallbackContainer_Bot.statusPost('Sequence 3 triggered') 
-            for i in range(146):
-                ledstrip.set_pixel(i,0,0,255,10)
-            ledstrip.show()
-            stsSequence = 3
+        shadowCallbackContainer_Bot.statusPost('Sequence 3 triggered') 
+        for i in range(146):
+            ledstrip.set_pixel(i,0,0,255,10)
+        ledstrip.show()
+        stsSequence = 3
 
-    # add 0.5second debounce
+    # add 0.3second debounce
     if btnTrigger > 0:
-        time.sleep(0.5)
+        time.sleep(0.3)
         btnTrigger = 0
     else:
 
