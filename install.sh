@@ -24,6 +24,7 @@ chown -R pi:pi $servicedir
  
 # copy app and service files 
 cp ledcontrol.py $servicedir/bin 
+cp ledcontrol.ini $servicedir/bin 
 cp ledcontrol.service /lib/systemd/system 
 chmod 644 /lib/systemd/system/ledcontrol.service 
  
