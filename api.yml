@@ -8,7 +8,7 @@ Parameters:
 
 Resources:
   Sequence:
-    Type: AWS::Serverless:Function
+    Type: AWS::Serverless::Function
     Properties:
       Handler: api_sequence.handler
       Runtime: python3.6
