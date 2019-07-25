@@ -20,6 +20,7 @@ phases:
     commands:
 
       # Use AWS SAM to package the application by using AWS CloudFormation
+      - echo $S3_BUCKET
       - aws cloudformation package --template api.yml --s3-bucket $S3_BUCKET --output-template api-export.yml
 
 
