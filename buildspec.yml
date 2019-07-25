@@ -9,9 +9,6 @@ phases:
       # Upgrade AWS CLI and boto3 to the latest version
       - pip install --upgrade awscli
       - pip install --upgrade boto3
-      - pip install --user aws-sam-cli
-      - USER_BASE_PATH=$(python -m site --user-base)
-      - export PATH=$PATH:$USER_BASE_PATH/bin
   
   pre_build:
     commands:
@@ -23,7 +20,7 @@ phases:
     commands:
 
       # Use AWS SAM to package the application by using AWS CloudFormation
-      - sam package --template api.yml --s3-bucket $S3_BUCKET --output-template api-export.yml
+      - aws cloudformation package --template api.yml --s3-bucket $S3_BUCKET --output-template api-export.yml
 
 
 artifacts:
