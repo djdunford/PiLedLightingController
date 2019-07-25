@@ -24,8 +24,8 @@ phases:
 
       # Use AWS SAM to package the application by using AWS CloudFormation
       - cd lambda
-      - sam build -t api.yml
-      - sam package --template-file .aws-sam/build/template.yaml --s3-bucket $S3_BUCKET --output-template-file ../api-export.yml
+      - sam package --template api.yml --s3-bucket $S3_BUCKET --output-templatee ../api-export.yml
+
 
 artifacts:
   type: zip
