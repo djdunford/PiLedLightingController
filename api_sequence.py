@@ -9,6 +9,7 @@ def handler(event, context):
     
     client = boto3.client('iot-data', region_name='eu-west-1')
     logger.info("Received event: " + json.dumps(event, indent=2))
+    logger.info("sequence: " + event['pathParameters']['sequence'])
     
     #response = client.update_thing_shadow(thingName='ThomasBedroomLEDcontrol')
     
