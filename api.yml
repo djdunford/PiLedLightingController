@@ -6,12 +6,24 @@ Parameters:
     Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
     Default: "prod"
 
+Globals:
+  Function:
+    Runtime: python3.6
+    Timeout: 10
+  Api:
+    EndpointConfiguration: REGIONAL
+    MethodSettings: [{
+      "ThrottlingBurstLimit": 10,
+      "ThrottlingRateLimit": 5,
+      "ResourcePath": "/*",
+      "HttpMethod": "*",
+    }]
+
 Resources:
   Sequence:
     Type: AWS::Serverless::Function
     Properties:
       Handler: api_sequence.handler
-      Runtime: python3.6
       Role:
         Fn::GetAtt:
         - LambdaExecutionRole
