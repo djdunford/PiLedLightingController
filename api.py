@@ -5,7 +5,7 @@ import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-def handler(event, context):
+def show(event, context):
     
     client = boto3.client('iot-data', region_name='eu-west-1')
     logger.info("Received event: " + json.dumps(event, indent=2))

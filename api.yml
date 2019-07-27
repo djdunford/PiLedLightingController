@@ -23,7 +23,7 @@ Resources:
   Sequence:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: api_sequence.handler
+      Handler: api.show
       Role:
         Fn::GetAtt:
         - LambdaExecutionRole
