@@ -9,7 +9,8 @@ iotClient = boto3.client('iot-data', region_name='eu-west-1')
 def showsequence(event, context):    
     logger.debug("Received event: " + json.dumps(event, indent=2))
     logger.info("Executing showsequence command: " + event['pathParameters']['sequence'])
-    response = client.update_thing_shadow(thingName='ThomasBedroomLEDcontrol')
+    payload = {"state":{"desired":{"status":"TRIGGER","sequence":seq}}}
+	response = client.update_thing_shadow(thingName='ThomasBedroomLEDcontrol',json.dumps(payload))
     streamingBody = response["payload"]
     jsonState = json.loads(streamingBody.read())
     logger.info(jsonState)
