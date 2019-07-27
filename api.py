@@ -8,10 +8,13 @@ iotClient = boto3.client('iot-data', region_name='eu-west-1')
 
 def showsequence(event, context):    
     logger.debug("Received event: " + json.dumps(event, indent=2))
-    seq = int(event['pathParameters']['sequence'])
+    try:
+        seq = int(event['pathParameters']['sequence'])
+    except ValueError:
+        raise Exception("Invalid sequence parameter - must be a non-zero integer")
     logger.debug("Checking integer: " + str(seq))
     if seq == 0:
-        raise Exception("Invalid sequence parameter - not an integer")
+        raise Exception("Invalid sequence parameter - must be non-zero")
     logger.debug("Valid non-zero integer confirmed")
         
     logger.info("Executing showsequence command: " + event['pathParameters']['sequence'])
