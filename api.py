@@ -10,17 +10,16 @@ def showsequence(event, context):
     logger.debug("Received event: " + json.dumps(event, indent=2))
     logger.info("Executing showsequence command: " + event['pathParameters']['sequence'])
     payload = {"state":{"desired":{"status":"TRIGGER","sequence":seq}}}
-	response = client.update_thing_shadow(thingName='ThomasBedroomLEDcontrol',json.dumps(payload))
+    response = client.update_thing_shadow(thingName='ThomasBedroomLEDcontrol',json.dumps(payload))
     streamingBody = response["payload"]
     jsonState = json.loads(streamingBody.read())
     logger.info(jsonState)
     return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': {'Content-Type': 'application/json'}}
 
 def state(event, context):
-	logger.info("Executing state command (returns state)")
-	response = iotClient.get_thing_shadow(thingName='ThomasBedroomLEDcontrol')
-	streamingBody = response["payload"]
-	jsonState = json.loads(streamingBody.read())
-	logger.debug(jsonState)
-	return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': {'Content-Type': 'application/json'}}
-	
+    logger.info("Executing state command (returns state)")
+    response = iotClient.get_thing_shadow(thingName='ThomasBedroomLEDcontrol')
+    streamingBody = response["payload"]
+    jsonState = json.loads(streamingBody.read())
+    logger.debug(jsonState)
+    return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': {'Content-Type': 'application/json'}}
