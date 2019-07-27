@@ -34,6 +34,20 @@ Resources:
           Properties:
             Path: "/showsequence/{sequence}"
             Method: get
+  Off:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: api.off
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      Events:
+        OffGetEvent:
+          Type: Api
+          Properties:
+            Path: "/off"
+            Method: get
   State:
     Type: AWS::Serverless::Function
     Properties:
