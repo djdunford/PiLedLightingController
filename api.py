@@ -10,7 +10,7 @@ def showsequence(event, context):
     logger.debug("Received event: " + json.dumps(event, indent=2))
     logger.info("Executing showsequence command: " + event['pathParameters']['sequence'])
     payload = {"state":{"desired":{"status":"TRIGGER","sequence":seq}}}
-    response = client.update_thing_shadow(thingName='ThomasBedroomLEDcontrol',json.dumps(payload))
+    response = client.update_thing_shadow(thingName='ThomasBedroomLEDcontrol',payload=json.dumps(payload))
     streamingBody = response["payload"]
     jsonState = json.loads(streamingBody.read())
     logger.info(jsonState)
