@@ -8,6 +8,9 @@ iotClient = boto3.client('iot-data', region_name='eu-west-1')
 
 def showsequence(event, context):    
     logger.debug("Received event: " + json.dumps(event, indent=2))
+    if ((seq = int(event['pathParameters']['sequence'])) == 0):
+        raise Exception("Invalid sequence parameter - not an integer"
+        
     logger.info("Executing showsequence command: " + event['pathParameters']['sequence'])
     payload = {"state":{"desired":{"status":"TRIGGER","sequence":seq}}}
     response = client.update_thing_shadow(thingName='ThomasBedroomLEDcontrol',payload=json.dumps(payload))
