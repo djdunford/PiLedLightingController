@@ -16,7 +16,7 @@ def showsequence(event, context):
         
     logger.info("Executing showsequence command: " + event['pathParameters']['sequence'])
     payload = {"state":{"desired":{"status":"TRIGGER","sequence":seq}}}
-    response = client.update_thing_shadow(thingName='ThomasBedroomLEDcontrol',payload=json.dumps(payload))
+    response = iotClient.update_thing_shadow(thingName='ThomasBedroomLEDcontrol',payload=json.dumps(payload))
     streamingBody = response["payload"]
     jsonState = json.loads(streamingBody.read())
     logger.info(jsonState)
