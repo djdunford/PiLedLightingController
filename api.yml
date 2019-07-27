@@ -23,7 +23,7 @@ Resources:
   Sequence:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: api.show
+      Handler: api.showsequence
       Role:
         Fn::GetAtt:
         - LambdaExecutionRole
@@ -32,7 +32,7 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: "/show/{sequence}"
+            Path: "/showsequence/{sequence}"
             Method: get
 
   LambdaExecutionRole:

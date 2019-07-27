@@ -5,7 +5,7 @@ import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-def show(event, context):
+def showsequence(event, context):
     
     client = boto3.client('iot-data', region_name='eu-west-1')
     logger.info("Received event: " + json.dumps(event, indent=2))
@@ -21,3 +21,14 @@ def show(event, context):
  
     #return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': {'Content-Type': 'application/json'}}
     return {'statusCode': 200}
+
+def state(event, context):
+	client = boto3.client('iot-data', region_name='eu-west-1')
+	response = client.get_thing_shadow(thingName='ThomasBedroomLEDcontrol')
+	streamingBody = response["payload"]
+	jsonState = json.loads(streamingBody.read())
+	logger.info(jsonState)
+ 
+	return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': {'Content-Type': 'application/json'}}
+	
+
