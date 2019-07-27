@@ -10,7 +10,7 @@ def showsequence(event, context):
     logger.debug("Received event: " + json.dumps(event, indent=2))
     seq = int(event['pathParameters']['sequence']
     if seq == 0:
-        raise Exception("Invalid sequence parameter - not an integer"
+        raise Exception("Invalid sequence parameter - not an integer")
         
     logger.info("Executing showsequence command: " + event['pathParameters']['sequence'])
     payload = {"state":{"desired":{"status":"TRIGGER","sequence":seq}}}
