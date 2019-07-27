@@ -20,7 +20,7 @@ Globals:
     }]
 
 Resources:
-  ShowSequence:
+  ShowSequenceApiFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: api.showsequence
@@ -48,7 +48,7 @@ Resources:
           Properties:
             Path: "/off"
             Method: get
-  State:
+  StateApiFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: api.state
