@@ -34,7 +34,7 @@ Resources:
           Properties:
             Path: "/showsequence/{sequence}"
             Method: get
-  Off:
+  OffApiFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: "api.off"
