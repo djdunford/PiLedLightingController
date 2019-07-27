@@ -37,7 +37,7 @@ Resources:
   Off:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: api.off
+      Handler: "api.off"
       Role:
         Fn::GetAtt:
         - LambdaExecutionRole
