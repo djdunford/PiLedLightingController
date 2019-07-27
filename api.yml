@@ -20,7 +20,7 @@ Globals:
     }]
 
 Resources:
-  Sequence:
+  ShowSequence:
     Type: AWS::Serverless::Function
     Properties:
       Handler: api.showsequence
@@ -29,10 +29,24 @@ Resources:
         - LambdaExecutionRole
         - Arn
       Events:
-        GetEvent:
+        ShowSequenceGetEvent:
           Type: Api
           Properties:
             Path: "/showsequence/{sequence}"
+            Method: get
+  State:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: api.state
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      Events:
+        StateGetEvent:
+          Type: Api
+          Properties:
+            Path: "/state"
             Method: get
 
   LambdaExecutionRole:
