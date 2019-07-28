@@ -89,3 +89,19 @@ Resources:
                 - "iot:GetThingShadow"
                 - "iot:UpdateThingShadow"
                 Resource: "arn:aws:iot:*:*:thing/*"
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: true
+      UserPoolName: !Sub ${AWS::StackName}-UserPool
+      UsernameAttributes:
+        - email
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: ledlightingremote
+      GenerateSecret: false
+      UserPoolId: !Ref UserPool
+      ExplicitAuthFlows:
+        - ADMIN_NO_SRP_AUTH
