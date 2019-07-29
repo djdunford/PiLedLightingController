@@ -2,9 +2,9 @@ AWSTemplateFormatVersion: 2010-09-09
 Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
-    BucketName: "{{resolve:ssm:URL_IDP:1}}"
     Properties:
       AccessControl: PublicRead
+      BucketName: "{{resolve:ssm:URL_IDP:1}}"
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
