@@ -1,14 +1,13 @@
 AWSTemplateFormatVersion: 2010-09-09
 
 Resources:
+
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
       AccessControl: PublicRead
       BucketName: "{{resolve:ssm:URL_LIGHTS:1}}"
-      WebsiteConfiguration:
-        IndexDocument: index.html
-        ErrorDocument: error.html
+      
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -18,8 +17,10 @@ Resources:
         Statement:
           - Sid: PublicReadForGetBucketObjects
             Effect: Allow
-            Principal: '*'
-            Action: 's3:GetObject'
+            Principal:
+              CanonicalUser: !GetAtt OAI.S3CanonicalUserId
+            Action:
+              - s3:GetObject
             Resource: !Join 
               - ''
               - - 'arn:aws:s3:::'
@@ -27,17 +28,26 @@ Resources:
                 - /*
       Bucket: !Ref S3Bucket
       
+  OAI:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Sub 'CloudFront OAI for {{resolve:ssm:URL_LIGHTS:1}}'
+      
   myDistribution:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
         Origins:
-        - DomainName: !GetAtt S3Bucket.WebsiteURL
+        - DomainName:
+            !Join [ "", [ !Ref S3Bucket, ".s3.amazonaws.com" ] ]
           Id: myS3Origin
           S3OriginConfig:
-            OriginAccessIdentity: ""
+            OriginAccessIdentity:
+              !Join [ "", [ "origin-access-identity/cloudfront/", !Ref OAI ] ]
         Enabled: true
         DefaultRootObject: index.html
+        HttpVersion: http2
         Aliases:
         - "{{resolve:ssm:URL_LIGHTS:1}}"
         DefaultCacheBehavior:
