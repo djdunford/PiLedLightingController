@@ -34,10 +34,7 @@ Resources:
         Origins:
         - DomainName: !GetAtt S3Bucket.DomainName
           Id: myS3Origin
-          S3OriginConfig:
-            OriginAccessIdentity:
         Enabled: true
-        Comment: 
         DefaultRootObject: index.html
         Aliases:
         - "{{resolve:ssm:URL_LIGHTS:1}}"
