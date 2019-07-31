@@ -1,4 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
+
 Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
@@ -25,6 +26,42 @@ Resources:
                 - !Ref S3Bucket
                 - /*
       Bucket: !Ref S3Bucket
+      
+  myDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+        - DomainName: !GetAtt S3Bucket.DomainName
+          Id: myS3Origin
+          S3OriginConfig:
+            OriginAccessIdentity:
+        Enabled: true
+        Comment: 
+        DefaultRootObject: index.html
+        Aliases:
+        - "{{resolve:ssm:URL_LIGHTS:1}}"
+        DefaultCacheBehavior:
+          AllowedMethods:
+          - DELETE
+          - GET
+          - HEAD
+          - OPTIONS
+          - PATCH
+          - POST
+          - PUT
+          TargetOriginId: myS3Origin
+          ForwardedValues:
+            QueryString: false
+            Cookies:
+              Forward: all
+          ViewerProtocolPolicy: redirect-to-https
+        PriceClass: PriceClass_100
+        ViewerCertificate:
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: "TLSv1.1_2016"
+          AcmCertificateArn: {{resolve:ssm:CERT_ARN:1}}
+      
 Outputs:
   WebsiteURL:
     Value: !GetAtt 
