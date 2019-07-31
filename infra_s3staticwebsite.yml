@@ -60,7 +60,7 @@ Resources:
         ViewerCertificate:
           SslSupportMethod: sni-only
           MinimumProtocolVersion: "TLSv1.1_2016"
-          AcmCertificateArn: {{resolve:ssm:CERT_ARN:1}}
+          AcmCertificateArn: "{{resolve:ssm:CERT_ARN:1}}"
       
 Outputs:
   WebsiteURL:
