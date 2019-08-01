@@ -62,6 +62,15 @@ Resources:
           Properties:
             Path: "/state"
             Method: get
+            
+  CustomDomainName:
+    Type: AWS::ApiGateway::DomainName
+    Properties: 
+      DomainName: "{{resolve:ssm:URL_API:1}}"
+      EndpointConfiguration: 
+        Types:
+        - REGIONAL
+      RegionalCertificateArn: "{{resolve:ssm:CERT_API_ARN:1}}"
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
