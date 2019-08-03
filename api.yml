@@ -72,6 +72,19 @@ Resources:
         - REGIONAL
       RegionalCertificateArn: "{{resolve:ssm:CERT_API_ARN:1}}"
 
+  ApiDomainMapping:
+    Type: 'AWS::ApiGateway::BasePathMapping'
+    Properties:
+      DomainName: !Ref CustomDomainName
+      RestApiId: !Ref Api
+      Stage: v1
+      BasePath: "/lights"
+      
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: v1
+
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
