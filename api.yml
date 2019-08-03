@@ -1,11 +1,5 @@
 Transform: 'AWS::Serverless-2016-10-31'
 
-Parameters:
-  Stage:
-    Type: String
-    Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
-    Default: "prod"
-
 Globals:
   Function:
     Runtime: python3.6
@@ -80,13 +74,13 @@ Resources:
     Properties:
       DomainName: !Ref CustomDomainName
       RestApiId: !Ref Api
-      Stage: v1
-      BasePath: "lights"
+      Stage: prod
+      BasePath: lights
       
   Api:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: v1
+      StageName: prod
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
