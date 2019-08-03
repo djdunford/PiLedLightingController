@@ -81,14 +81,12 @@ Resources:
         "ResourcePath": "/*",
         "HttpMethod": "*",
       }]
-      DefinitionBody:
-
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'CodeStar-${AWS::StackName}-Execution${Stage}'
+      RoleName: !Sub 'CodeStar-${AWS::StackName}-ExecutionProd'
       AssumeRolePolicyDocument:
         Statement:
         - Effect: Allow
