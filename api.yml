@@ -78,7 +78,7 @@ Resources:
       DomainName: !Ref CustomDomainName
       RestApiId: !Ref Api
       Stage: v1
-      BasePath: "/lights"
+      BasePath: "lights"
       
   Api:
     Type: AWS::Serverless::Api
