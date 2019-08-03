@@ -4,14 +4,6 @@ Globals:
   Function:
     Runtime: python3.6
     Timeout: 10
-  Api:
-    EndpointConfiguration: REGIONAL
-    MethodSettings: [{
-      "ThrottlingBurstLimit": 10,
-      "ThrottlingRateLimit": 5,
-      "ResourcePath": "/*",
-      "HttpMethod": "*",
-    }]
 
 Resources:
   ShowSequenceApiFunction:
@@ -80,7 +72,17 @@ Resources:
   Api:
     Type: AWS::Serverless::Api
     Properties:
+      Name: LightsApiProd
       StageName: prod
+      EndpointConfiguration: REGIONAL
+      MethodSettings: [{
+        "ThrottlingBurstLimit": 10,
+        "ThrottlingRateLimit": 5,
+        "ResourcePath": "/*",
+        "HttpMethod": "*",
+      }]
+      DefinitionBody:
+
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
