@@ -68,7 +68,7 @@ Resources:
       RestApiId: !Ref Api
       Stage: prod
       BasePath: lights
-    DependsOn: ApiStage
+    DependsOn: ApiprodStage
       
   Api:
     Type: AWS::Serverless::Api
