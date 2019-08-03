@@ -1,3 +1,4 @@
+Resources:
   UserPool:
     Type: AWS::Cognito::UserPool
     Properties:
@@ -7,7 +8,7 @@
       UserPoolName: !Sub ${AWS::StackName}-UserPool
       UsernameAttributes:
         - email
-      MfaConfiguration: OFF
+      MfaConfiguration: "OFF"
       
   UserPoolClient:
     Type: AWS::Cognito::UserPoolClient
