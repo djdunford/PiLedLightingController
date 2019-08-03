@@ -34,6 +34,7 @@ Resources:
           Properties:
             Path: "/showsequence/{sequence}"
             Method: get
+            RestApiId: !Ref Api
   OffApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -48,6 +49,7 @@ Resources:
           Properties:
             Path: "/off"
             Method: get
+            RestApiId: !Ref Api
   StateApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -62,6 +64,7 @@ Resources:
           Properties:
             Path: "/state"
             Method: get
+            RestApiId: !Ref Api
             
   CustomDomainName:
     Type: AWS::ApiGateway::DomainName
