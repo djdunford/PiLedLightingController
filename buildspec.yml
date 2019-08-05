@@ -44,3 +44,4 @@ artifacts:
   files:
     - 'api-export.yml'
     - 'lightsapp/build/**/*'
+    - 'reactdeployspec.yml'
