@@ -22,9 +22,9 @@ phases:
       
       # install node js dependencies from project file
       - echo 'Installing source npm depencencies'
-      - cd ~/lightsapp
+      - cd lightsapp
       - npm install
-      - cd
+      - cd ..
   
   build:
     commands:
@@ -35,9 +35,9 @@ phases:
       
       # build node app
       - echo 'Building node.js app'
-      - cd ~/lightsapp
+      - cd lightsapp
       - npm run build
-      - cd
+      - cd ..
 
 artifacts:
   type: zip
