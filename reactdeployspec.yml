@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   parameter-store:
-    appdomain: DEPLOY_BUCKET
+    DEPLOY_BUCKET: "URL_LIGHTS"
 
 phases:
   install:
