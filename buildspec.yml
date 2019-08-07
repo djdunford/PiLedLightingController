@@ -31,7 +31,9 @@ phases:
 
       # Use AWS SAM to package the application by using AWS CloudFormation
       - echo 'Packaging SAM artifacts'
+      - cd lambda
       - aws cloudformation package --template-file api.yml --s3-bucket $S3_BUCKET --output-template-file api-export.yml
+      - cd ..
       
       # build node app
       - echo 'Building node.js app'
@@ -42,6 +44,6 @@ phases:
 artifacts:
   type: zip
   files:
-    - 'api-export.yml'
+    - 'lambda/api-export.yml'
     - 'lightsapp/build/**/*'
     - 'reactdeployspec.yml'
