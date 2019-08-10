@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import LoaderButton from "../components/LoaderButton";
+
 import "./Login.css";
 import { Auth } from "aws-amplify";
 
@@ -7,11 +9,11 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      email: "",
-      password: ""
-    };
-  }
+  this.state = {
+  isLoading: false,
+  email: "",
+  password: ""
+};
 
   validateForm() {
     return this.state.email.length > 0 && this.state.password.length > 0;
@@ -23,17 +25,20 @@ export default class Login extends Component {
     });
   }
 
-  handleSubmit = async event => {
-	  event.preventDefault();
+handleSubmit = async event => {
+  event.preventDefault();
 
-	  try {
-	    await Auth.signIn(this.state.email, this.state.password);
-	    this.props.userHasAuthenticated(true);
-	  } catch (e) {
-	    alert(e.message);
-	  }
-	}
+  this.setState({ isLoading: true });
 
+  try {
+    await Auth.signIn(this.state.email, this.state.password);
+    this.props.userHasAuthenticated(true);
+    this.props.history.push("/");
+  } catch (e) {
+    alert(e.message);
+    this.setState({ isLoading: false });
+  }
+}
 
   render() {
     return (
@@ -55,15 +60,16 @@ export default class Login extends Component {
               onChange={this.handleChange}
               type="password"
             />
-          </FormGroup>
-          <Button
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-          >
-            Login
-          </Button>
+          </FormGroup>          
+<LoaderButton
+  block
+  bsSize="large"
+  disabled={!this.validateForm()}
+  type="submit"
+  isLoading={this.state.isLoading}
+  text="Login"
+  loadingText="Logging in…"
+/>
         </form>
       </div>
     );
