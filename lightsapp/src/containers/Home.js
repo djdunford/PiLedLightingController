@@ -11,9 +11,9 @@ export default class Home extends Component {
           <p>APA102 / SK9822 LED Lighting Controller</p>
         </div>
         <div className="buttons">
-          <Button variant="danger">RED</Button>
-          <Button variant="success">GREEN</Button>
-          <Button variant="primary">BLUE</Button>
+          <Button bsStyle="danger">RED</Button>
+          <Button bsStyle="success">GREEN</Button>
+          <Button bsStyle="primary">BLUE</Button>
         </div>        
       </div>
     );
