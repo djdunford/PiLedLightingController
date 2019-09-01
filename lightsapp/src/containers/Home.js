@@ -6,7 +6,7 @@ export default class Home extends Component {
 
 handleRed = async event => {
   event.preventDefault();
-  this.setState({ isLoading: true });
+  this.setState({ disabled: true });
 }
 
   render() {
