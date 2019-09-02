@@ -8,6 +8,10 @@ handleRed = async event => {
   event.preventDefault();
   this.setState({ disabled: true });
   window.alert("red should now been disabled");
+  $.ajax({
+      url: "https://api.debsanddarren.com/lights/showsequence/1",
+      method: "GET",
+  });
 };
 
   render() {
