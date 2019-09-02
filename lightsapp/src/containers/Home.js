@@ -7,7 +7,8 @@ export default class Home extends Component {
 handleRed = async event => {
   event.preventDefault();
   this.setState({ disabled: true });
-}
+  window.alert("red should now been disabled");
+};
 
   render() {
     return (
