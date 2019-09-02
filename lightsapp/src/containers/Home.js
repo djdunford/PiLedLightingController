@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import "./Home.css";
-import axios from "axios";
+import { API } from "aws-amplify";
 
 export default class Home extends Component {
 
 handleRed = async event => {
   event.preventDefault();
   this.setState({ disabled: true });
-  window.alert("red should now been disabled");
-  axios.get("https://api.debsanddarren.com/lights/showsequence/1");
+  API.get("https://api.debsanddarren.com/lights/showsequence/1");
 };
 
   render() {
