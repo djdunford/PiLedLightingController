@@ -82,7 +82,7 @@ Resources:
         "ResourcePath": "/*",
         "HttpMethod": "*",
       }]
-      Cors: "lights.debsanddarren.com" # TODO reference environment variable for this
+      Cors: "'lights.debsanddarren.com'" # TODO reference environment variable for this
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
