@@ -23,7 +23,8 @@ def showsequence(event, context):
     streamingBody = response["payload"]
     jsonState = json.loads(streamingBody.read())
     logger.info(jsonState)
-    return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': {'Content-Type': 'application/json'}}
+    headers = {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'https://lights.debsanddarren.com'}
+    return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': headers}
 
 def off(event, context):    
     logger.info("Executing off command:")
