@@ -8,7 +8,8 @@ export default class Home extends Component {
 handleRed = async event => {
   event.preventDefault();
   this.setState({ disabled: true });
-  API.get("https://api.debsanddarren.com/lights/showsequence/1");
+  API.get("ledlightingcontroller","/showsequence/1")
+      .catch(error => {console.log(error.response)});
 };
 
   render() {
