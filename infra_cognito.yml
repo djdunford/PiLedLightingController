@@ -9,12 +9,9 @@ Resources:
       UsernameAttributes:
         - email
       MfaConfiguration: "OFF"
-      
-  UserPoolClient:
-    Type: AWS::Cognito::UserPoolClient
-    Properties:
-      ClientName: ledlightingremote
-      GenerateSecret: false
-      UserPoolId: !Ref UserPool
-      ExplicitAuthFlows:
-        - USER_PASSWORD_AUTH
+Outputs:
+  UserPoolId:
+    Description: Cognito User Pool ID
+    Value: !Ref UserPool
+    Export:
+      Name: CognitoUserPoolId
