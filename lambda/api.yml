@@ -4,11 +4,6 @@ Globals:
   Function:
     Runtime: python3.6
     Timeout: 10
-  Api:
-    Cors:
-      AllowMethods: "'OPTIONS,POST,GET'"
-      AllowHeaders: "'Content-Type'"
-      AllowOrigin: "'https://lights.debsanddarren.com'" # TODO reference environment variable for this
 
 Resources:
   ShowSequenceApiFunction:
@@ -87,6 +82,11 @@ Resources:
         "ResourcePath": "/*",
         "HttpMethod": "*",
       }]
+      Api:
+        Cors:
+          AllowMethods: "'OPTIONS,POST,GET'"
+          AllowHeaders: "'Content-Type'"
+          AllowOrigin: "'https://lights.debsanddarren.com'" # TODO reference environment variable for this
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
