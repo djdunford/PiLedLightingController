@@ -90,8 +90,7 @@ Resources:
         DefaultAuthorizer: LightsApiCognitoAuth
         Authorizers:
           LightsApiCognitoAuth:
-            UserPoolArn: !ImportValue CognitoUserPoolId
-
+            UserPoolArn: !ImportValue CognitoUserPoolArn,
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda

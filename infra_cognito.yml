@@ -19,8 +19,8 @@ Resources:
         - USER_PASSWORD_AUTH
 
 Outputs:
-  UserPoolId:
-    Description: Cognito User Pool ID
-    Value: !Ref UserPool
+  UserPoolArn:
+    Description: Cognito User Pool Arn
+    Value: !GetAtt UserPool.Arn
     Export:
-      Name: CognitoUserPoolId
+      Name: CognitoUserPoolArn
