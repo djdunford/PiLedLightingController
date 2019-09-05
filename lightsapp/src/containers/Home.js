@@ -8,7 +8,10 @@ export default class Home extends Component {
 handleRed = async event => {
   event.preventDefault();
   this.setState({ disabled: true });
-  API.get("ledlightingcontroller","/showsequence/1")
+  const user = await Auth.currentAuthenticatedUser();
+  const token = user.signInUserSession.idToken.jwtToken;
+  const request = { headers: { Authorization: token } };
+  API.get("ledlightingcontroller", "/showsequence/1", request)
       .catch(error => {console.log(error.response)});
 };
 
