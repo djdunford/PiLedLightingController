@@ -27,7 +27,7 @@ Resources:
         - ServerSideTokenCheck: true
           ClientId: !Ref UserPoolClient
           ProviderName: !GetAtt UserPool.ProviderName
-      IdentityPoolName: !Sub ${AWS::StackName}-IdentityPool
+      IdentityPoolName: !Sub ${AWS::StackName}IdentityPool
 
   IdentityPoolRoleAttachment:
     Type: AWS::Cognito::IdentityPoolRoleAttachment
