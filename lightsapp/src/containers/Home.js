@@ -7,7 +7,7 @@ export default class Home extends Component {
 
 handleRed = async event => {
   event.preventDefault();
-  API.get("ledlightingcontroller", "/showsequence/1", request)
+  API.get("ledlightingcontroller", "/showsequence/1")
       .catch(error => {console.log(error.response)});
 };
 
