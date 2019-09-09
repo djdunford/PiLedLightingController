@@ -87,10 +87,7 @@ Resources:
         AllowHeaders: "'Content-Type'"
         AllowOrigin: "'https://lights.debsanddarren.com'" # TODO reference environment variable for this
       Auth:
-        DefaultAuthorizer: LightsApiCognitoAuth
-        Authorizers:
-          LightsApiCognitoAuth:
-            UserPoolArn: !ImportValue CognitoUserPoolArn
+        DefaultAuthorizer: AWS_IAM
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
