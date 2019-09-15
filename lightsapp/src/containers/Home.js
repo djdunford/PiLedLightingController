@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import "./Home.css";
 import { API } from "aws-amplify";
+import { Auth } from 'aws-amplify';
 import config from "../config";
 
 export default class Home extends Component {
