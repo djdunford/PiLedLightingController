@@ -5,8 +5,8 @@ export default {
   },
   cognito: {
     REGION: "eu-west-1",  // TODO remove hardcoded region
-    USER_POOL_ID: "eu-west-1_L7Ck7fcxb",  // TODO remove hardcoded user pool ID
-    APP_CLIENT_ID: "4jdl5geaahich5idjs0c52o200",  // TODO remove hardcoded app client ID
-    IDENTITY_POOL_ID: "eu-west-1:ee092402-95fa-474e-bbfc-340ab7535da8"  // TODO remove hardcoded identity pool ID
+    USER_POOL_ID: "eu-west-1_gjkbuYvcP",  // TODO remove hardcoded user pool ID
+    APP_CLIENT_ID: "6t66amn0i2lgdsgrfg32amd9lh",  // TODO remove hardcoded app client ID
+    IDENTITY_POOL_ID: "eu-west-1:97a64b40-c7c3-4357-9e4d-fdc389ada6e9"  // TODO remove hardcoded identity pool ID
   }
 };
