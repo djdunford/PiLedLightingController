@@ -82,10 +82,6 @@ Resources:
         "ResourcePath": "/*",
         "HttpMethod": "*",
       }]
-      Cors:
-        AllowMethods: "'OPTIONS,POST,GET'"
-        AllowHeaders: "'Content-Type'"
-        AllowOrigin: "'https://lights.debsanddarren.com'" # TODO reference environment variable for this
       Auth:
         DefaultAuthorizer: AWS_IAM
 
