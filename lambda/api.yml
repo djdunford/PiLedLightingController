@@ -21,6 +21,8 @@ Resources:
             Path: "/showsequence/{sequence}"
             Method: get
             RestApiId: !Ref Api
+            Auth:
+              Authorizer: AWS_IAM
   OffApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -36,6 +38,8 @@ Resources:
             Path: "/off"
             Method: get
             RestApiId: !Ref Api
+            Auth:
+              Authorizer: AWS_IAM
   StateApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -51,7 +55,9 @@ Resources:
             Path: "/state"
             Method: get
             RestApiId: !Ref Api
-            
+            Auth:
+              Authorizer: AWS_IAM
+
   CustomDomainName:
     Type: AWS::ApiGateway::DomainName
     Properties: 
@@ -82,8 +88,10 @@ Resources:
         "ResourcePath": "/*",
         "HttpMethod": "*",
       }]
-      Auth:
-        DefaultAuthorizer: AWS_IAM
+      Cors:
+        AllowMethods: "'OPTIONS,POST,GET'"
+        AllowHeaders: "'X-Amz-Security-Token,Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+        AllowOrigin: "'https://lights.debsanddarren.com'" # TODO reference environment variable for this
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
