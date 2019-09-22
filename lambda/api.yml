@@ -23,7 +23,7 @@ Resources:
             RestApiId: !Ref Api
             Auth:
               Authorizer: AWS_IAM
-              InvokeRole: NONE
+              InvokeRole: NONE # see https://github.com/awslabs/serverless-application-model/issues/923
   OffApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -41,7 +41,7 @@ Resources:
             RestApiId: !Ref Api
             Auth:
               Authorizer: AWS_IAM
-              InvokeRole: NONE
+              InvokeRole: NONE # see https://github.com/awslabs/serverless-application-model/issues/923
   StateApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -59,7 +59,7 @@ Resources:
             RestApiId: !Ref Api
             Auth:
               Authorizer: AWS_IAM
-              InvokeRole: NONE
+              InvokeRole: NONE # see https://github.com/awslabs/serverless-application-model/issues/923
 
   CustomDomainName:
     Type: AWS::ApiGateway::DomainName
