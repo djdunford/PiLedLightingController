@@ -11,6 +11,24 @@ export default class Home extends Component {
             .catch(error => {console.log(error.response)});
     };
 
+    handleGreen = async event => {
+        event.preventDefault();
+        API.get("ledlightingcontroller", "/showsequence/2")
+            .catch(error => {console.log(error.response)});
+    };
+
+    handleBlue = async event => {
+        event.preventDefault();
+        API.get("ledlightingcontroller", "/showsequence/3")
+            .catch(error => {console.log(error.response)});
+    };
+
+    handleOff = async event => {
+        event.preventDefault();
+        API.get("ledlightingcontroller", "/off")
+            .catch(error => {console.log(error.response)});
+    };
+
     render() {
         return (
             <div className="Home">
@@ -20,8 +38,9 @@ export default class Home extends Component {
                 </div>
                 <div className="buttons">
                     <Button bsStyle="danger" bsSize="large" type="button" onClick={this.handleRed}>RED</Button>
-                    <Button bsStyle="success" bsSize="large">GREEN</Button>
-                    <Button bsStyle="primary" bsSize="large">BLUE</Button>
+                    <Button bsStyle="success" bsSize="large" type="button" onClick={this.handleGreen}>GREEN</Button>
+                    <Button bsStyle="primary" bsSize="large" type="button" onClick={this.handleBlue}>BLUE</Button>
+                    <Button bsStyle="primary" bsSize="large" type="button" onClick={this.handleOff}>OFF</Button>
                 </div>
             </div>
         );
