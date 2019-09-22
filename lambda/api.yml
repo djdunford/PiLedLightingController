@@ -23,6 +23,7 @@ Resources:
             RestApiId: !Ref Api
             Auth:
               Authorizer: AWS_IAM
+              InvokeRole: NONE
   OffApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -40,6 +41,7 @@ Resources:
             RestApiId: !Ref Api
             Auth:
               Authorizer: AWS_IAM
+              InvokeRole: NONE
   StateApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -57,6 +59,7 @@ Resources:
             RestApiId: !Ref Api
             Auth:
               Authorizer: AWS_IAM
+              InvokeRole: NONE
 
   CustomDomainName:
     Type: AWS::ApiGateway::DomainName
