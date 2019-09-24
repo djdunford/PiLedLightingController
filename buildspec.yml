@@ -4,9 +4,11 @@ phases:
   install:
     runtime-versions:
       python: 3.7
+      nodejs: 8
     commands:
 
       # Upgrade AWS CLI and boto3 to the latest version
+      - echo 'Installing awscli and boto3 for python'
       - pip install --upgrade awscli
       - pip install --upgrade boto3
   
@@ -15,14 +17,33 @@ phases:
 
       # Discover and run unit tests in the 'tests' directory. For more information, see <https://docs.python.org/3/library/unittest.html#test-discovery>
       # - python -m unittest discover tests
+      
+      # unit test node js app
+      
+      # install node js dependencies from project file
+      - echo 'Installing source npm depencencies'
+      - cd lightsapp
+      - npm install
+      - cd ..
   
   build:
     commands:
 
       # Use AWS SAM to package the application by using AWS CloudFormation
+      - echo 'Packaging SAM artifacts'
+      - cd lambda
       - aws cloudformation package --template-file api.yml --s3-bucket $S3_BUCKET --output-template-file api-export.yml
+      - cd ..
+      
+      # build node app
+      - echo 'Building node.js app'
+      - cd lightsapp
+      - npm run build
+      - cd ..
 
 artifacts:
   type: zip
   files:
-    - api-export.yml
+    - 'lambda/api-export.yml'
+    - 'lightsapp/build/**/*'
+    - 'reactdeployspec.yml'

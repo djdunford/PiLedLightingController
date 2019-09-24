@@ -1,23 +1,9 @@
 Transform: 'AWS::Serverless-2016-10-31'
 
-Parameters:
-  Stage:
-    Type: String
-    Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
-    Default: "prod"
-
 Globals:
   Function:
     Runtime: python3.6
     Timeout: 10
-  Api:
-    EndpointConfiguration: REGIONAL
-    MethodSettings: [{
-      "ThrottlingBurstLimit": 10,
-      "ThrottlingRateLimit": 5,
-      "ResourcePath": "/*",
-      "HttpMethod": "*",
-    }]
 
 Resources:
   ShowSequenceApiFunction:
@@ -34,6 +20,10 @@ Resources:
           Properties:
             Path: "/showsequence/{sequence}"
             Method: get
+            RestApiId: !Ref Api
+            Auth:
+              Authorizer: AWS_IAM
+              InvokeRole: NONE # see https://github.com/awslabs/serverless-application-model/issues/923
   OffApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -48,6 +38,10 @@ Resources:
           Properties:
             Path: "/off"
             Method: get
+            RestApiId: !Ref Api
+            Auth:
+              Authorizer: AWS_IAM
+              InvokeRole: NONE # see https://github.com/awslabs/serverless-application-model/issues/923
   StateApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -62,12 +56,51 @@ Resources:
           Properties:
             Path: "/state"
             Method: get
+            RestApiId: !Ref Api
+            Auth:
+              Authorizer: AWS_IAM
+              InvokeRole: NONE # see https://github.com/awslabs/serverless-application-model/issues/923
+
+  CustomDomainName:
+    Type: AWS::ApiGateway::DomainName
+    Properties: 
+      DomainName: "{{resolve:ssm:URL_API:1}}"
+      EndpointConfiguration: 
+        Types:
+        - REGIONAL
+      RegionalCertificateArn: "{{resolve:ssm:CERT_API_ARN:1}}"
+
+  ApiDomainMapping:
+    Type: 'AWS::ApiGateway::BasePathMapping'
+    Properties:
+      DomainName: !Ref CustomDomainName
+      RestApiId: !Ref Api
+      Stage: prod
+      BasePath: lights
+    DependsOn: ApiprodStage
+      
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: LightsApiProd
+      StageName: prod
+      EndpointConfiguration: REGIONAL
+      MethodSettings: [{
+        "ThrottlingBurstLimit": 10,
+        "ThrottlingRateLimit": 5,
+        "ResourcePath": "/*",
+        "HttpMethod": "*",
+      }]
+      Cors:
+        AllowMethods: "'OPTIONS,POST,GET'"
+        AllowHeaders: "'X-Amz-Security-Token,Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+        AllowOrigin: "'https://lights.debsanddarren.com'" # TODO reference environment variable for this
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'CodeStar-${AWS::StackName}-Execution${Stage}'
+      RoleName: !Sub 'LambdaExec-${AWS::StackName}'
       AssumeRolePolicyDocument:
         Statement:
         - Effect: Allow

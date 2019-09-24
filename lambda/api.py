@@ -23,7 +23,9 @@ def showsequence(event, context):
     streamingBody = response["payload"]
     jsonState = json.loads(streamingBody.read())
     logger.info(jsonState)
-    return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': {'Content-Type': 'application/json'}}
+    # TODO replace CORS domain with environment variable
+    headers = {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'https://lights.debsanddarren.com'}
+    return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': headers}
 
 def off(event, context):    
     logger.info("Executing off command:")
@@ -32,7 +34,9 @@ def off(event, context):
     streamingBody = response["payload"]
     jsonState = json.loads(streamingBody.read())
     logger.info(jsonState)
-    return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': {'Content-Type': 'application/json'}}
+    # TODO replace CORS domain with environment variable
+    headers = {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'https://lights.debsanddarren.com'}
+    return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': headers}
 
 def state(event, context):
     logger.info("Executing state command (returns state)")
@@ -40,4 +44,6 @@ def state(event, context):
     streamingBody = response["payload"]
     jsonState = json.loads(streamingBody.read())
     logger.debug(jsonState)
-    return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': {'Content-Type': 'application/json'}}
+    # TODO replace CORS domain with environment variable
+    headers = {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'https://lights.debsanddarren.com'}
+    return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': headers}
