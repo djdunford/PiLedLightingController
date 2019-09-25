@@ -8,12 +8,16 @@ Globals:
 Mappings:
   Variables:
     AlexaSkillKit:
-      Id: "{{resolve:ssm:ALEXA_SKILL_ID:1}}"
+      Id: "{{resolve:ssm:ALEXA_LEDCONTROL_SKILL_ID:1}}"
 
 Resources:
   AlexaSkillFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
       Handler: alexa.lambda_handler
 
   AlexaSkillFunctionPermission:
