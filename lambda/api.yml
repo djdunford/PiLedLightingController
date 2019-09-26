@@ -18,7 +18,7 @@ Resources:
         Fn::GetAtt:
           - LambdaExecutionRole
           - Arn
-      Handler: alexa.lambda_handler
+      Handler: alexahandler.lambda_handler
 
   AlexaSkillFunctionPermission:
     Type: AWS::Lambda::Permission
