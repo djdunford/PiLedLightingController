@@ -4,7 +4,7 @@ import logging
 
 logger = logging.getLogger("api")
 logger.setLevel(logging.DEBUG)
-iotClient = boto3.client('iot-data', region_name='eu-west-1')
+iotClient = boto3.client('iot-data', region_name='eu-west-1') # TODO remove hardcode reference to region
 
 def showsequence(event, context):    
     logger.debug("Received event: " + json.dumps(event, indent=2))
@@ -19,7 +19,8 @@ def showsequence(event, context):
         
     logger.info("Executing showsequence command: " + event['pathParameters']['sequence'])
     payload = {"state":{"desired":{"status":"TRIGGER","sequence":seq}}}
-    response = iotClient.update_thing_shadow(thingName='ThomasBedroomLEDcontrol',payload=json.dumps(payload))
+    # TODO remove hardcoded reference to thingName in next line
+    response = iotClient.update_thing_shadow(thingName="ThomasBedroomLEDcontrol", payload=json.dumps(payload))
     streamingBody = response["payload"]
     jsonState = json.loads(streamingBody.read())
     logger.info(jsonState)
@@ -30,6 +31,7 @@ def showsequence(event, context):
 def off(event, context):    
     logger.info("Executing off command:")
     payload = {"state":{"desired":{"status":"TRIGGER","sequence":100}}}
+    # TODO remove hardcoded reference to thingName in next line
     response = iotClient.update_thing_shadow(thingName='ThomasBedroomLEDcontrol',payload=json.dumps(payload))
     streamingBody = response["payload"]
     jsonState = json.loads(streamingBody.read())
@@ -40,6 +42,7 @@ def off(event, context):
 
 def state(event, context):
     logger.info("Executing state command (returns state)")
+    # TODO remove hardcoded reference to thingName in next line
     response = iotClient.get_thing_shadow(thingName='ThomasBedroomLEDcontrol')
     streamingBody = response["payload"]
     jsonState = json.loads(streamingBody.read())

@@ -5,7 +5,33 @@ Globals:
     Runtime: python3.6
     Timeout: 10
 
+Mappings:
+  Variables:
+    AlexaSkillKit:
+      Id: "{{resolve:ssm:ALEXA_LEDCONTROL_SKILL_ID:1}}"
+
 Resources:
+  AlexaSkillFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Handler: alexahandler.lambda_handler
+
+  AlexaSkillFunctionPermission:
+    Type: AWS::Lambda::Permission
+    DependsOn: AlexaSkillFunction
+    Properties:
+      Action: lambda:InvokeFunction
+      EventSourceToken: !FindInMap
+        - Variables
+        - AlexaSkillKit
+        - Id
+      FunctionName: !GetAtt AlexaSkillFunction.Arn
+      Principal: alexa-connectedhome.amazon.com
+
   ShowSequenceApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -60,6 +86,8 @@ Resources:
             Auth:
               Authorizer: AWS_IAM
               InvokeRole: NONE # see https://github.com/awslabs/serverless-application-model/issues/923
+
+
 
   CustomDomainName:
     Type: AWS::ApiGateway::DomainName
