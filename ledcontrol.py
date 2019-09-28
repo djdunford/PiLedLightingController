@@ -11,7 +11,6 @@ import RPi.GPIO as GPIO
 import syslog 
 import sys
 import time
-import AWSIoTPythonSDK
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTShadowClient
 from driver import apa102
 import configparser
@@ -127,13 +126,13 @@ def button_press_callback(channel):
             if GPIO.input(button[0]) == False:
                 btnTrigger = button[1]            
                 
-    return
-
     # implement toggle for cancelling
     if btnTrigger > 0:
         if btnTrigger == stsSequence:
             btnTrigger = 100
-        
+
+    return
+
 
 # set each button as an input pin, with pullup,
 # and set an event handler based on falling edge
