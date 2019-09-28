@@ -23,6 +23,12 @@ export default class Home extends Component {
             .catch(error => {console.log(error.response)});
     };
 
+    handleYellow = async event => {
+        event.preventDefault();
+        API.get("ledlightingcontroller", "/setcolour/255/255/0")
+            .catch(error => {console.log(error.response)});
+    };
+
     handleOff = async event => {
         event.preventDefault();
         API.get("ledlightingcontroller", "/off")
@@ -40,7 +46,8 @@ export default class Home extends Component {
                     <Button bsStyle="danger" bsSize="large" type="button" onClick={this.handleRed}>RED</Button>
                     <Button bsStyle="success" bsSize="large" type="button" onClick={this.handleGreen}>GREEN</Button>
                     <Button bsStyle="primary" bsSize="large" type="button" onClick={this.handleBlue}>BLUE</Button>
-                    <Button bsStyle="primary" bsSize="large" type="button" onClick={this.handleOff}>OFF</Button>
+                    <Button bsStyle="warning" bsSize="large" type="button" onClick={this.handleYellow}>YELLOW</Button>
+                    <Button bsSize="large" type="button" onClick={this.handleOff}>OFF</Button>
                 </div>
             </div>
         );
