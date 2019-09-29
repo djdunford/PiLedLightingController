@@ -144,7 +144,7 @@ def set_device_state(endpoint_id, state, value):
 def set_color_state(endpoint_id, state, value):
     h = float(value['hue'])
     s = float(value['saturation'])
-    v = float(value['value'])
+    v = float(value['brightness'])
     r, g, b = [int(c*255) for c in colorsys.hsv_to_rgb(h,s,v)]
     logger.debug("Setting Colour HSV "+str(h)+","+str(s)+","+str(v)+" RGB "+str(r)+","+str(g)+","+str(b))
     payload = {"state":{"desired":{"status":"SETCOLOUR","colour":{"r":r,"g":g,"b":b}}}}
