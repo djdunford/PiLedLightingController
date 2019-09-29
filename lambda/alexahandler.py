@@ -108,7 +108,7 @@ def lambda_handler(request, context):
         correlation_token = request['directive']['header']['correlationToken']
 
         # Check for an error when setting the state
-        color_set = set_device_state(endpoint_id=endpoint_id, state='color', value={request['directive']['payload']['color']})
+        color_set = set_device_state(endpoint_id=endpoint_id, state='color', value=request['directive']['payload']['color'])
         if not color_set:
             return AlexaResponse(
                 name='ErrorResponse',
