@@ -142,7 +142,7 @@ def set_device_state(endpoint_id, state, value):
     return True
 
 def set_color_state(endpoint_id, state, value):
-    h = float(value['hue'])
+    h = float(value['hue'])/360.0
     s = float(value['saturation'])
     v = float(value['brightness'])
     r, g, b = [int(c*255) for c in colorsys.hsv_to_rgb(h,s,v)]
