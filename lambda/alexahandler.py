@@ -115,7 +115,7 @@ def lambda_handler(request, context):
                 payload={'type': 'ENDPOINT_UNREACHABLE', 'message': 'Unable to reach endpoint database.'}).get()
 
         apcr = AlexaResponse(correlation_token=correlation_token)
-        apcr.add_context_property(namespace='Alexa.ColorController', name='color', value={request['directive']['payload']['color']})
+        apcr.add_context_property(namespace='Alexa.ColorController', name='color', value=request['directive']['payload']['color'])
         return send_response(apcr.get())
 
 
