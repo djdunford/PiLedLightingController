@@ -41,6 +41,11 @@ btnTrigger = 0
 # set current sequence to false
 stsSequence = 0
 
+# set colours to 0
+r = 0
+g = 0
+b = 0
+
 # define AWSIoT shadow functions and callbacks
 class shadowCallbackContainer:
 
@@ -105,7 +110,7 @@ class shadowCallbackContainer:
     def statusPost(self,status):
 
         # create new JSON payload to update device shadow
-        newPayload = {"state":{"reported":{"status":str(status),"sequencerun":None,"sequence":None},"desired":None}}
+        newPayload = {"state":{"reported":{"status":str(status),"sequencerun":None,"sequence":None,"colour":None},"desired":None}}
         self.deviceShadowInstance.shadowUpdate(json.dumps(newPayload), None, 20)
     
         # log to syslog
