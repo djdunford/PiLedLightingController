@@ -146,6 +146,7 @@ def set_color_state(endpoint_id, state, value):
     s = float(value['saturation'])
     v = float(value['value'])
     r, g, b = [int(c*255) for c in colorsys.hsv_to_rgb(h,s,v)]
+    logger.debug("Setting Colour HSV "+str(h)+","+str(s)+","+str(v)+" RGB "+str(r)+","+str(g)+","+str(b))
     payload = {"state":{"desired":{"status":"SETCOLOUR","colour":{"r":r,"g":g,"b":b}}}}
 
     # TODO replace hardcoded thing name
