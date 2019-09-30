@@ -41,6 +41,11 @@ btnTrigger = 0
 # set current sequence to false
 stsSequence = 0
 
+# set colours to 0
+r = 0
+g = 0
+b = 0
+
 # define AWSIoT shadow functions and callbacks
 class shadowCallbackContainer:
 
@@ -55,6 +60,9 @@ class shadowCallbackContainer:
         
         # declare global variables updated by this procedure
         global btnTrigger
+        global r
+        global g
+        global b
         
         # DEBUG dump payload in to syslog
         if DEBUG and SYSLOG:
@@ -76,10 +84,21 @@ class shadowCallbackContainer:
                 except KeyError:
                     pass
                 else:    
-                    
                     # trigger and update status
                     btnTrigger = int(sequence)
                     newPayload.update({"state":{"reported":{"status":"TRIGGERED","sequencerun":sequence,"sequence":None}}})
+
+            elif newState == "SETCOLOUR":
+                try:
+                    r = int(payloadDict["state"]["colour"]["r"])
+                    g = int(payloadDict["state"]["colour"]["g"])
+                    b = int(payloadDict["state"]["colour"]["b"])
+                except KeyError:
+                    pass
+                else:
+                    # set colour and trigger
+                    btnTrigger = 101
+                    newPayload.update({"state":{"reported":{"status":"SETTINGCOLOUR","colour":{"r":r,"g":g,"b":b}}}})
 
         if DEBUG and SYSLOG:
             syslog.syslog("Shadow update: "+json.dumps(newPayload))
@@ -91,7 +110,7 @@ class shadowCallbackContainer:
     def statusPost(self,status):
 
         # create new JSON payload to update device shadow
-        newPayload = {"state":{"reported":{"status":str(status),"sequencerun":None,"sequence":None},"desired":None}}
+        newPayload = {"state":{"reported":{"status":str(status),"sequencerun":None,"sequence":None,"colour":None},"desired":None}}
         self.deviceShadowInstance.shadowUpdate(json.dumps(newPayload), None, 20)
     
         # log to syslog
@@ -186,7 +205,15 @@ while True:
         shadowCallbackContainer_Bot.statusPost('RUNNING')
         ledstrip.clear_strip()
         stsSequence = 0
-    
+
+    # if sequence 101 then set colour
+    if btnTrigger == 101:
+        shadowCallbackContainer_Bot.statusPost('Colour set')
+        for i in range(146):
+            ledstrip.set_pixel(i,r,g,b,10)
+        ledstrip.show()
+        stsSequence = 0
+
     # if button 1 pressed show Red
     if btnTrigger == 1:
         shadowCallbackContainer_Bot.statusPost('Sequence 1 triggered') 

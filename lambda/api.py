@@ -28,7 +28,27 @@ def showsequence(event, context):
     headers = {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'https://lights.debsanddarren.com'}
     return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': headers}
 
-def off(event, context):    
+def setcolour(event, context):
+    logger.debug("Received event: " + json.dumps(event, indent=2))
+    try:
+        r = int(event['pathParameters']['r'])
+        g = int(event['pathParameters']['g'])
+        b = int(event['pathParameters']['b'])
+    except ValueError:
+        raise Exception("Invalid sequence parameter - must be a non-zero integer")
+    logger.debug("Colour received: "+str(r)+","+str(g)+","+str(b))
+    logger.info("Executing setcolour command: "+str(r)+","+str(g)+","+str(b))
+    payload = {"state":{"desired":{"status":"SETCOLOUR","colour":{"r":r,"g":g,"b":b}}}}
+    # TODO remove hardcoded reference to thingName in next line
+    response = iotClient.update_thing_shadow(thingName="ThomasBedroomLEDcontrol", payload=json.dumps(payload))
+    streamingBody = response["payload"]
+    jsonState = json.loads(streamingBody.read())
+    logger.info(jsonState)
+    # TODO replace CORS domain with environment variable
+    headers = {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'https://lights.debsanddarren.com'}
+    return {'statusCode': 200, 'body': json.dumps(jsonState), 'headers': headers}
+
+def off(event, context):
     logger.info("Executing off command:")
     payload = {"state":{"desired":{"status":"TRIGGER","sequence":100}}}
     # TODO remove hardcoded reference to thingName in next line

@@ -15,6 +15,7 @@ import boto3
 import json
 import logging
 from alexa.skills.smarthome import AlexaResponse
+import colorsys
 
 logger = logging.getLogger("alexa")
 logger.setLevel(logging.DEBUG)
@@ -68,11 +69,20 @@ def lambda_handler(request, context):
             capability_alexa = adr.create_payload_endpoint_capability()
             capability_alexa_powercontroller = adr.create_payload_endpoint_capability(
                 interface='Alexa.PowerController',
-                supported=[{'name': 'powerState'}])
+                supported=[{'name': 'powerState'}],
+                proactively_reported=False,
+                retrievable=False
+            )
+            capability_alexa_colorcontroller = adr.create_payload_endpoint_capability(
+                interface='Alexa.ColorController',
+                supported=[{'name': 'color'}],
+                proactively_reported=False,
+                retrievable=False
+            )
             adr.add_payload_endpoint(
                 friendly_name='Den Lights', # TODO remove hardcoded friendly name
                 endpoint_id='thomas-den-lights', # TODO removed hardcoded endpoint_id
-                capabilities=[capability_alexa, capability_alexa_powercontroller])
+                capabilities=[capability_alexa, capability_alexa_powercontroller, capability_alexa_colorcontroller])
             return send_response(adr.get())
 
     if namespace == 'Alexa.PowerController':
@@ -92,6 +102,22 @@ def lambda_handler(request, context):
         apcr.add_context_property(namespace='Alexa.PowerController', name='powerState', value=power_state_value)
         return send_response(apcr.get())
 
+    if namespace == 'Alexa.ColorController' and name == 'SetColor':
+        # Note: This sample always returns a success response for either a request to TurnOff or TurnOn
+        endpoint_id = request['directive']['endpoint']['endpointId']
+        correlation_token = request['directive']['header']['correlationToken']
+
+        # Check for an error when setting the state
+        color_set = set_color_state(endpoint_id=endpoint_id, state='color', value=request['directive']['payload']['color'])
+        if not color_set:
+            return AlexaResponse(
+                name='ErrorResponse',
+                payload={'type': 'ENDPOINT_UNREACHABLE', 'message': 'Unable to reach endpoint database.'}).get()
+
+        apcr = AlexaResponse(correlation_token=correlation_token)
+        apcr.add_context_property(namespace='Alexa.ColorController', name='color', value=request['directive']['payload']['color'])
+        return send_response(apcr.get())
+
 
 def send_response(response):
     # TODO Validate the response
@@ -106,6 +132,24 @@ def set_device_state(endpoint_id, state, value):
     else:
         payload = {"state":{"desired":{"status":"TRIGGER","sequence":100}}}
 
+    # TODO replace hardcoded thing name
+    response = iotClient.update_thing_shadow(thingName='ThomasBedroomLEDcontrol',payload=json.dumps(payload))
+    streamingBody = response["payload"]
+    jsonState = json.loads(streamingBody.read())
+    logger.info(jsonState)
+
+    # TODO replace with correct return code - currently returns true for success in all cases
+    return True
+
+def set_color_state(endpoint_id, state, value):
+    h = float(value['hue'])/360.0
+    s = float(value['saturation'])
+    v = float(value['brightness'])
+    r, g, b = [int(c*255) for c in colorsys.hsv_to_rgb(h,s,v)]
+    logger.debug("Setting Colour HSV "+str(h)+","+str(s)+","+str(v)+" RGB "+str(r)+","+str(g)+","+str(b))
+    payload = {"state":{"desired":{"status":"SETCOLOUR","colour":{"r":r,"g":g,"b":b}}}}
+
+    # TODO replace hardcoded thing name
     response = iotClient.update_thing_shadow(thingName='ThomasBedroomLEDcontrol',payload=json.dumps(payload))
     streamingBody = response["payload"]
     jsonState = json.loads(streamingBody.read())
