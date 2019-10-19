@@ -7,6 +7,7 @@
 
 # Import Libraries
 from driver import apa102
+import time
 
 # initialise LED strip, uses SPI pins (BCM10 and BCM11) by default
 ledstrip = apa102.APA102(num_led=146)
