@@ -16,3 +16,6 @@ for i in range(146):
     ledstrip.set_pixel(i,255,0,0,10)
 ledstrip.show()
 
+while true:
+    time.sleep(1);
+
