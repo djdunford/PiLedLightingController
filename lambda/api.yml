@@ -124,7 +124,7 @@ Resources:
       RestApiId: !Ref Api
       Stage: prod
       BasePath: lights
-    DependsOn: ApiprodStage
+    DependsOn: ApiprodStage  # see https://github.com/awslabs/serverless-application-model/issues/192
       
   Api:
     Type: AWS::Serverless::Api
